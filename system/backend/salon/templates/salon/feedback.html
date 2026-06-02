@@ -1,0 +1,15 @@
+{% extends "salon/base.html" %}
+
+{% block title %}Feedback{% endblock %}
+
+{% block content %}
+  <section class="card">
+    <h1>Feedback</h1>
+    <p class="muted">Contact: <strong>{{ contact_phone }}</strong></p>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_div }}
+      <button class="button" type="submit">Send Feedback</button>
+    </form>
+  </section>
+{% endblock %}

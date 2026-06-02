@@ -1,0 +1,15 @@
+{% extends "salon/base.html" %}
+
+{% block title %}Book Appointment{% endblock %}
+
+{% block content %}
+  <section class="card">
+    <h1>Book Appointment</h1>
+    <p class="muted">This booking will be saved under your signed-in customer account.</p>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_div }}
+      <button class="button" type="submit">Book Appointment</button>
+    </form>
+  </section>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "salon/base.html" %}
+
+{% block title %}Salon Sign-In{% endblock %}
+
+{% block content %}
+  <div class="grid two">
+    <section class="card">
+      <h1>Customer Sign-In</h1>
+      <p class="muted">Customers can book appointments and view only their own bookings.</p>
+      <p><a class="button" href="{% url 'customer_login' %}">Sign In as Customer</a></p>
+    </section>
+    <section class="card">
+      <h1>Barber Sign-In</h1>
+      <p class="muted">The barber can view all appointments, mark them done, or cancel when busy.</p>
+      <p><a class="button secondary" href="{% url 'barber_login' %}">Sign In as Barber</a></p>
+    </section>
+  </div>
+{% endblock %}

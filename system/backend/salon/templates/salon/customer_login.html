@@ -1,0 +1,22 @@
+{% extends "salon/base.html" %}
+
+{% block title %}Customer Sign-In{% endblock %}
+
+{% block content %}
+  <section class="card">
+    <h1>Customer Sign-In</h1>
+    <form method="post">
+      {% csrf_token %}
+      <div>
+        <label for="username">Customer Username</label>
+        <input id="username" name="username" autocomplete="username" required>
+      </div>
+      <div>
+        <label for="password">Customer Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required>
+      </div>
+      <button class="button" type="submit">Sign In as Customer</button>
+    </form>
+    <p class="muted">Demo customers: godwin, christian, matia, angel. Password: customer123</p>
+  </section>
+{% endblock %}

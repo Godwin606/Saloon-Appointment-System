@@ -1,0 +1,22 @@
+{% extends "salon/base.html" %}
+
+{% block title %}Barber Sign-In{% endblock %}
+
+{% block content %}
+  <section class="card">
+    <h1>Barber Sign-In</h1>
+    <form method="post">
+      {% csrf_token %}
+      <div>
+        <label for="username">Barber Username</label>
+        <input id="username" name="username" autocomplete="username" required>
+      </div>
+      <div>
+        <label for="password">Barber Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required>
+      </div>
+      <button class="button secondary" type="submit">Sign In as Barber</button>
+    </form>
+    <p class="muted">Demo barber: barber. Password: barber123</p>
+  </section>
+{% endblock %}

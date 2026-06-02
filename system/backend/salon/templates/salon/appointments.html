@@ -1,0 +1,66 @@
+{% extends "salon/base.html" %}
+
+{% block title %}Appointments{% endblock %}
+
+{% block content %}
+  <section class="card">
+    <h1>{% if user.is_staff %}Barber Appointments{% else %}My Appointments{% endif %}</h1>
+    <p class="muted">
+      Signed in as {{ user.get_full_name|default:user.username }}.
+      {% if user.is_staff %}You can manage every booking.{% else %}You can only see your own bookings.{% endif %}
+    </p>
+    {% if not user.is_staff %}
+      <p><a class="button" href="{% url 'book_appointment' %}">Book New Appointment</a></p>
+    {% endif %}
+  </section>
+
+  <section class="card">
+    {% if appointments %}
+      <table>
+        <thead>
+          <tr>
+            <th>Customer</th>
+            <th>Service</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Charge</th>
+            <th>Status</th>
+            {% if user.is_staff %}<th>Actions</th>{% endif %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for appointment in appointments %}
+            <tr>
+              <td>
+                <strong>{{ appointment.client_name }}</strong><br>
+                <span class="muted">{{ appointment.client_email }}</span>
+              </td>
+              <td>{{ appointment.service.name }}</td>
+              <td>{{ appointment.date }}</td>
+              <td>{{ appointment.time_slot }}</td>
+              <td>UGX {{ appointment.quoted_price|default:appointment.service.price|floatformat:0 }}</td>
+              <td><span class="badge {{ appointment.status }}">{{ appointment.status }}</span></td>
+              {% if user.is_staff %}
+                <td>
+                  {% if appointment.status != "Completed" and appointment.status != "Cancelled" %}
+                    <div class="actions">
+                      {% if appointment.status == "Pending" %}
+                        <a class="button small" href="{% url 'update_appointment_status' appointment.id 'Confirmed' %}">Confirm</a>
+                      {% endif %}
+                      <a class="button small success" href="{% url 'update_appointment_status' appointment.id 'Completed' %}">Done</a>
+                      <a class="button small danger" href="{% url 'update_appointment_status' appointment.id 'Cancelled' %}">Busy</a>
+                    </div>
+                  {% else %}
+                    <span class="muted">No action</span>
+                  {% endif %}
+                </td>
+              {% endif %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p class="muted">No appointments found.</p>
+    {% endif %}
+  </section>
+{% endblock %}
